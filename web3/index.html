@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Fjalla+One&display=swap" rel="stylesheet">
+
+    
+    <title>Fatih Varli - Portfolio</title>
+    <style>
+        /* Reset CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* General Styles */
+        body {
+            font-family: 'Fjalla One', sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        }
+        
+        body.dark-mode {
+        background-color: #333; /* Dark mode için arka plan rengi (siyah) */
+        color: #fff; /* Dark mode için metin rengi (beyaz) */
+        font-family: 'Fjalla One', sans-serif;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        margin: 0;
+        /* Diğer stiller */
+    }
+    /* Light/Dark Mode Switch */
+.switch {
+    position: relative;
+    width: 60px;
+    height: 30px;
+    background-color: #333; /* Switch arka plan rengi */
+    border-radius: 15px; /* Yuvarlak köşeler */
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Gölge efekti */
+}
+
+.switch::before {
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-color: #fff; /* Switch içindeki yuvarlak rengi */
+    border-radius: 50%; /* Yuvarlak şekil */
+    transition: 0.3s; /* Geçiş efekti */
+}
+
+.dark-mode .switch::before {
+    transform: translateX(30px); /* Koyu modda switch kaydırma */
+}
+
+/* İkon rengi ayarları (isteğe bağlı) */
+.switch::before {
+    color: #000; /* Ikon rengi açık modda */
+}
+
+.dark-mode .switch::before {
+    color: #fff; /* Ikon rengi koyu modda */
+}
+
+/* Header Icons */
+.header-icons {
+    display: flex;
+    align-items: center;
+}
+
+.mode-icon {
+    cursor: pointer;
+    font-size: 24px;
+    margin-right: 20px;
+}
+
+        header {
+    background-color: transparent; /* Set the background color to transparent */
+    backdrop-filter: blur(10px);
+    padding: 10px 20px;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+    height: 70px;
+    flex: 0 0 auto;
+    animation: fadeIn 1s; /* Add a fade-in animation */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Add a shadow effect */
+    font-size: 2em;
+    text-decoration: none;
+}
+
+        .header-logo {
+            text-align: left;
+            font-weight: bold;
+            flex: 1;
+            
+        }
+
+        .burger-icon {
+            font-size: 24px;
+            cursor: pointer;
+            display: none;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: right;
+        }
+        
+        nav li {
+    display: inline;
+    margin-right: 20px;
+    position: relative;
+    font-weight: bold; /* Metin kalın olsun */
+}
+
+
+/* Sağ taraftaki yazılara elit hover efekti ekleyin */
+nav a {
+    text-decoration: none;
+    
+    position: relative;
+    overflow: hidden;
+    transition: background-color 0.3s; /* Arka plan rengini 0.3 saniyede değiştirmek için */
+    
+}
+
+
+nav a::before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 2px; /* Alt çizgi yüksekliği */
+    bottom: 0;
+    background-color: #000; /* Alt çizgi rengini siyah yapın */
+    transition: width 0.3s; /* Alt çizgi genişliğini 0.3 saniyede değiştirmek için */
+}
+
+nav a:hover {
+    background-color: #000; /* Arka plan rengini siyah yapın */
+    color: #fff; /* Metin rengini beyaza değiştirin */
+}
+
+nav a:hover::before {
+    width: 100%; /* Alt çizgi genişliğini artırın */
+}
+
+/* Başlık rengi */
+.title {
+    color: #333; /* Varsayılan başlık rengi */
+}
+
+body.dark-mode .title {
+    color: #fff; /* Koyu moda geçtiğinizde başlık rengini değiştirin */
+}
+
+/* About ve Contacts yazılarının rengi */
+.link-about, .link-contacts {
+    color: #333; /* Varsayılan yazı rengi */
+}
+
+body.dark-mode .link-about, body.dark-mode .link-contacts {
+    color: #fff; /* Koyu moda geçtiğinizde yazı rengini değiştirin */
+}
+
+ 
+
+
+        /* Project Cards */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 5px;
+            justify-items: center;
+            padding: 0 20px;
+            margin-top: 90px;
+            margin-bottom: 90px;
+            overflow: hidden;
+            
+        }
+
+        .project-card {
+            background-color: #fff;
+            padding: 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.2s;
+            border: none;
+           
+            
+        }
+
+        .project-card img {
+            max-width: 100%;
+            width: 100%;
+    height: 100%;
+            filter: grayscale(100%);
+            transition: filter 0.3s;
+            object-fit: cover;
+            
+        }
+
+        .project-card h3 {
+            font-size: 18px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            padding: 5px 10px;
+        }
+
+        .project-card:hover {
+            transform: scale(1.05);
+        }
+
+        .project-card:hover img {
+            filter: grayscale(0%);
+        }
+
+        .project-card:hover h3 {
+            opacity: 1;
+        }
+
+        /* Burger Menu */
+        /* Burger Menu */
+        .burger-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100%;
+            background-color: transparent; /* Set the background color to transparent */
+             backdrop-filter: blur(10px);
+            /* color: #fff; */
+            z-index: 2;
+            transition: right 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 1.5em;
+        }
+        
+        body.dark-mode .burger-icons {
+    color: #fff;
+}
+body.dark-mode .burger-menu a {
+    color: #fff;
+}
+.burger-menu a {
+    color: #333;
+    font-weight: bold;
+}
+
+
+        .burger-menu ul {
+            list-style: none;
+            text-align: center;
+        }
+
+        .burger-menu ul li {
+            margin: 20px 0;
+        }
+
+        .burger-menu .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            font-size: 24px;
+        }
+
+        .burger-icons {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            
+        }
+
+        .burger-icons a {
+            color: #333;
+            text-decoration: none;
+            font-size: 24px;
+            margin: 0 10px;
+        }
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+        }
+
+        .container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            font-size: 24px;
+        }
+
+        /* Footer */
+        footer {
+    background-color: transparent; /* Set the background color to transparent */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Add a shadow effect */
+    background-color: transparent;
+    backdrop-filter: blur(10px);
+    color: #333;
+    text-align: center;
+    padding: 20px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.footer-icon:hover {
+    color: #ffcc00; /* Icon hover rengi (isteğe bağlı) */
+    transform: scale(1.2); /* Icon hover'da büyüklük artışı (isteğe bağlı) */
+    transition: color 0.3s, transform 0.3s; /* Renk ve boyut değişimlerini animasyonla yapmak için */
+}
+
+
+.footer-content {
+    display: flex;
+    align-items: center;
+}
+
+.footer-icons {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+body.dark-mode .footer-icon:hover {
+    color: #ffcc00; /* Icon hover rengi (koyu modda) */
+}
+
+.footer-icon:last-child {
+    margin-right: 0;
+}
+
+.footer-icon i {
+    margin-right: 5px; /* İkonlar arasında küçük bir boşluk ekler */
+}
+.footer-icon {
+    color: #333;
+    font-size: 24px;
+    margin: 0 20px;
+    transition: color 0.3s;
+}
+
+body.dark-mode .footer-icon {
+    color: #fff;
+}
+
+.footer-icon:last-child {
+    margin-right: 0;
+}
+
+.footer-icon i {
+    margin-right: 5px; /* İkonlar arasında küçük bir boşluk ekler */
+}
+
+.copyright-notice {
+    margin: 0;
+    color: #333;
+    font-size: 14px;
+}
+
+body.dark-mode .copyright-notice {
+    color: #fff;
+}
+
+
+
+.footer-icon {
+        color: #333;
+        font-size: 24px;
+        margin: 0 20px;
+        transition: color 0.3s; /* Renk değişimini animasyonla yapmak için */
+    }
+
+    body.dark-mode .footer-icon {
+        color: #fff; /* Dark modda renkleri beyaz yapın */
+    }
+
+footer {
+    position: fixed;
+    bottom: 0;
+    z-index: 999;
+    
+    color: #333;
+    text-align: center;
+    padding: 20px 0;
+    width: 100%;
+}
+
+
+
+       
+        /* Arka plan slayt container'ı */
+.background-slideshow {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0.5; /* Opaklık ayarlayın */
+}
+
+.background-slideshow img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    opacity: 0;
+    transition: opacity 2s;
+}
+
+/* İlk görünen slayt */
+.background-slideshow img:first-child {
+    opacity: 1;
+}
+
+      /* Modal Styles */
+      .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 2;
+    text-align: center;
+    overflow-y: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.7); /* Modal'a gölge ekleyin */
+}
+
+.container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: transparent; /* Set the background color to transparent */
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    text-align: left; /* Metni sola yasla */
+    width: 80%; /* Modal genişliği */
+    color: #fff; /* Metin rengi beyaz */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Add a shadow effect */
+}
+
+/* Close Button Styles */
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 24px;
+    color: #fff;
+    z-index: 3;
+}
+
+/* ... (Diğer stilleriniz) ... */
+
+/* Modal Content Styles */
+.modal-content {
+    display: flex;
+    height: 100%;
+}
+
+.modal-carousel {
+    width: 50%; /* Carousel yarısı */
+    overflow: hidden;
+}
+
+.carousel {
+    position: relative;
+    max-width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* Modal Description Styles */
+.modal-description {
+    width: 50%; /* Açıklama yarısı */
+    padding: 20px;
+    text-align: left;
+    overflow-y: auto;
+}
+
+.modal-description h2 {
+    margin-top: 0;
+    text-align: right; /* Başlığı sağa yaslar */
+}
+
+.modal-description p {
+    margin: 10px 0;
+    text-align: right; /* Açıklama paragraflarını sağa yaslar */
+}
+
+.modal-description p::before {
+    content: attr(data-label); /* data-label özelliğini içeriğin başına ekler */
+    font-weight: bold;
+    display: block;
+    text-align: left; /* Yazıyı sola hizalar */
+}
+
+ 
+        /* Carousel Styles */v
+.carousel {
+    position: relative;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.carousel-inner {
+    display: flex;
+    transition: transform 0.3s ease;
+}
+
+.carousel-slide {
+    width: 100%;
+    display: none;
+}
+
+.carousel-slide img {
+    width: 100%;
+    height: auto;
+}
+
+.carousel-control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.carousel-control.prev {
+            left: 10px; /* Sol oku ayarla */
+        }
+
+ .carousel-control.next {
+            right: 10px; /* Sağ oku ayarla */
+        }
+
+        @media screen and (max-width: 768px) {
+            .modal-content {
+                display: flex;
+                flex-direction: column;
+            }
+            
+            .modal-carousel {
+                width: 100%; /* Carousel'ı ekran genişliği kadar yapın */
+            }
+            
+            .modal-description {
+                width: 100%; /* Açıklamaları ekran genişliği kadar yapın */
+                padding: 20px;
+                text-align: left;
+                overflow-y: auto;
+            }
+
+            .modal-description h2 {
+                text-align: left; /* Başlığı sola yasla */
+            }
+
+            .modal-description p {
+                text-align: left; /* Açıklamaları sola yasla */
+            }
+        }
+        
+
+        @media screen and (max-width: 768px) {
+            .burger-icon {
+                display: block;
+            }
+
+            nav ul {
+                display: none;
+            }
+
+            nav ul.active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 70px;
+                right: 0;
+                background-color: #000;
+                width: 100%;
+            }
+
+            footer {
+                position: relative;
+                z-index: 0;
+                width: auto;
+                padding-right: 20px;
+                padding-left: 20px;
+            }
+
+            .project-grid {
+                margin-top: 100px;
+            }
+
+
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-logo title">FATİH VARLİ</div>
+        <div class="header-icons">
+            <i class="fas fa-adjust mode-icon switch" id="mode-icon" onclick="toggleMode()"></i>
+
+            <i class="fas fa-bars burger-icon" onclick="toggleBurgerMenu()"></i>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#about" class="nav-link link-about">About Us</a></li>
+<li><a href="#contacts" class="nav-link link-contacts">Contacts</a></li>
+
+            </ul>
+        </nav>
+    </header>
+    
+    
+    
+
+    <!-- Burger Menu -->
+    <div class="burger-menu" onclick="closeBurgerMenu()">
+        
+        <ul>
+            
+            <li><a href="#about" style="text-decoration: none;">ABOUT US</a></li>
+            <li><a href="#contacts" style="text-decoration: none; ">CONTACTS</a></li>
+           
+        </ul>
+        <div class="burger-icons">
+            <a href="mailto:info@example.com" class="footer-icon">
+                <i class="far fa-envelope"></i>
+            </a>
+            <a href="https://www.instagram.com/fatihv.rli/" class="footer-icon">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/fatihvarli/" class="footer-icon">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="https://www.pinterest.com/fatihvarli/" class="footer-icon">
+                <i class="fab fa-pinterest"></i>
+            </a>
+        </div>
+        <p class="copyright-notice">© 2023 Fatih Varli. All rights reserved.</p>
+        </div>
+    </div>
+
+    <div class="project-grid">
+         <!-- Proje 1 -->
+<div class="project-card" onclick="openProjectModal('KILIS VEGETABLE MARKET COMPLEX', 'F2R', '2022', 'KILIS', 'BUILT IN','' ,'', [
+'17_KILIS HAL/01.jpg', '17_KILIS HAL/02.jpg', '17_KILIS HAL/03.jpg', '17_KILIS HAL/04.jpg', '17_KILIS HAL/05.jpg', '17_KILIS HAL/06.jpg', '17_KILIS HAL/07.jpg', '17_KILIS HAL/08.jpg', '17_KILIS HAL/09.jpg', '17_KILIS HAL/10.jpg', '17_KILIS HAL/11.jpg', '17_KILIS HAL/12.jpg', '17_KILIS HAL/13.jpg', '17_KILIS HAL/14.jpg', '17_KILIS HAL/15.jpg', '17_KILIS HAL/16.jpg', '17_KILIS HAL/17.jpg', '17_KILIS HAL/18.jpg'
+
+]);">
+<img src="17_KILIS HAL/05.jpg" alt="Proje 1">
+<h3>KILIS VEGETABLE MARKET COMPLEX</h3>
+</div>
+<!-- Project 2 -->
+<div class="project-card" onclick="openProjectModal('HENDEK VOCATIONAL SCHOOL', 'F2R FABRIKASI-ATOLYE B', '2023', 'SAKARYA', 'IN PROGRESS','' ,'', [
+'16_KOCAALI MYO/01.jpg',
+'16_KOCAALI MYO/02.jpg',
+'16_KOCAALI MYO/03.jpg',
+'16_KOCAALI MYO/05.jpg',
+'16_KOCAALI MYO/06.jpg',
+'16_KOCAALI MYO/07.jpg',
+'16_KOCAALI MYO/08.jpg',
+'16_KOCAALI MYO/09.jpg',
+'16_KOCAALI MYO/10.jpg',
+'16_KOCAALI MYO/11.jpg',
+'16_KOCAALI MYO/12.jpg',
+'16_KOCAALI MYO/13.jpg',
+'16_KOCAALI MYO/14.jpg',
+
+]);">
+<img src="16_KOCAALI MYO/10.jpg" alt="Proje 2">
+<h3>HENDEK VOCATIONAL SCHOOL</h3>
+</div>
+
+<!-- Project 3 -->
+<div class="project-card" onclick="openProjectModal('KOCAELI UNIVERSITY LIBRARY', 'F2R FABRIKASI-ATOLYE B', '2022', 'KOCAELI', 'IN PROGRESS','' ,'', [
+'01_KOCAELI KUTUPHANE/1.jpg',
+'01_KOCAELI KUTUPHANE/2.jpg',
+'01_KOCAELI KUTUPHANE/3.jpg',
+'01_KOCAELI KUTUPHANE/4.jpg',
+'01_KOCAELI KUTUPHANE/5.jpg',
+'01_KOCAELI KUTUPHANE/6.jpg',
+'01_KOCAELI KUTUPHANE/7.jpg',
+
+'01_KOCAELI KUTUPHANE/9.jpg',
+
+]);">
+<img src="01_KOCAELI KUTUPHANE/1.jpg" alt="Proje 3">
+<h3>KOCAELI UNIVERSITY LIBRARY</h3>
+</div>
+
+<!-- Project 4 -->
+<div class="project-card" onclick="openProjectModal('TEKINBEY RETAIL STORE', 'F2R FABRIKASI', '2023', 'KOCAELI', 'BUILT IN','' ,'', [
+'18_TEKINBEY/1.jpg',
+'18_TEKINBEY/2.jpg',
+'18_TEKINBEY/3.jpg',
+'18_TEKINBEY/4.jpg',
+'18_TEKINBEY/5.jpg',
+
+
+]);">
+<img src="18_TEKINBEY/5.jpg" alt="Proje 4">
+<h3>TEKINBEY RETAIL STORE</h3>
+</div>
+<!-- Project 5 -->
+<div class="project-card" onclick="openProjectModal('KUWAIT DUMO HOME', 'F2R FABRIKASI', '2023', 'KUVAIT', 'NOT BUILT','' ,'', [
+'14_DUMO HOME KUWAIT/1.jpg',
+'14_DUMO HOME KUWAIT/2.jpg',
+'14_DUMO HOME KUWAIT/3.jpg',
+'14_DUMO HOME KUWAIT/4.jpg',
+'14_DUMO HOME KUWAIT/5.jpg',
+'14_DUMO HOME KUWAIT/6.jpg',
+'14_DUMO HOME KUWAIT/7.jpg',
+'14_DUMO HOME KUWAIT/8.jpg',
+'14_DUMO HOME KUWAIT/9.jpg',
+'14_DUMO HOME KUWAIT/10.jpg',
+'14_DUMO HOME KUWAIT/11.jpg',
+'14_DUMO HOME KUWAIT/12.jpg',
+'14_DUMO HOME KUWAIT/13.jpg',
+'14_DUMO HOME KUWAIT/14.jpg',
+'14_DUMO HOME KUWAIT/15.jpg',
+'14_DUMO HOME KUWAIT/16.jpg',
+'14_DUMO HOME KUWAIT/17.jpg',
+'14_DUMO HOME KUWAIT/18.jpg'
+
+
+]);">
+<img src="14_DUMO HOME KUWAIT/4.jpg" alt="Proje 5">
+<h3>KUWAIT DUMO HOME</h3>
+</div>
+
+<!-- Project 6 -->
+<div class="project-card" onclick="openProjectModal('KOCAELI UNIVERSITY DENTAL FACULTY AND HOSPITAL', 'ATOLYE B', '2021', 'KOCAELI', 'NOT BUILT','' ,'', [
+'06_KOCAELI HASTANE/01.jpg',
+'06_KOCAELI HASTANE/02.jpg',
+'06_KOCAELI HASTANE/03.jpg',
+'06_KOCAELI HASTANE/04.jpg',
+'06_KOCAELI HASTANE/05.jpg',
+'06_KOCAELI HASTANE/06.jpg',
+'06_KOCAELI HASTANE/07.jpg',
+'06_KOCAELI HASTANE/08.jpg',
+'06_KOCAELI HASTANE/09.jpg',
+'06_KOCAELI HASTANE/10.jpg',
+'06_KOCAELI HASTANE/11.jpg',
+'06_KOCAELI HASTANE/12.jpg',
+'06_KOCAELI HASTANE/13.jpg',
+'06_KOCAELI HASTANE/14.jpg',
+'06_KOCAELI HASTANE/15.jpg',
+'06_KOCAELI HASTANE/16.jpg',
+'06_KOCAELI HASTANE/17.jpg',
+'06_KOCAELI HASTANE/18.jpg',
+'06_KOCAELI HASTANE/19.jpg',
+'06_KOCAELI HASTANE/20.jpg',
+'06_KOCAELI HASTANE/21.jpg',
+'06_KOCAELI HASTANE/22.jpg',
+'06_KOCAELI HASTANE/23.jpg',
+'06_KOCAELI HASTANE/24.jpg',
+'06_KOCAELI HASTANE/25.jpg',
+'06_KOCAELI HASTANE/26.jpg',
+'06_KOCAELI HASTANE/27.jpg',
+'06_KOCAELI HASTANE/28.jpg',
+'06_KOCAELI HASTANE/29.jpg',
+'06_KOCAELI HASTANE/30.jpg',
+'06_KOCAELI HASTANE/31.jpg',
+'06_KOCAELI HASTANE/32.jpg',
+'06_KOCAELI HASTANE/33.jpg',
+'06_KOCAELI HASTANE/34.jpg'
+
+
+]);">
+<img src="06_KOCAELI HASTANE/01.jpg" alt="Proje 6">
+<h3>KOCAELI UNIVERSITY DENTAL FACULTY AND HOSPITAL</h3>
+</div>
+
+<!-- Project 7 -->
+<div class="project-card" onclick="openProjectModal('KILIS WASTE COLLECTION CENTER', 'ATOLYE B', '2021', 'KILIS', 'BUILT IN','' ,'', [
+'03_BM ATIK/01.jpg',
+'03_BM ATIK/02.jpg',
+'03_BM ATIK/03.jpg',
+'03_BM ATIK/04.jpg',
+'03_BM ATIK/05.jpg',
+'03_BM ATIK/06.jpg',
+'03_BM ATIK/07.jpg',
+'03_BM ATIK/08.jpg',
+'03_BM ATIK/09.jpg',
+'03_BM ATIK/10.jpg',
+'03_BM ATIK/11.jpg'
+
+]);">
+<img src="03_BM ATIK/01.jpg" alt="Proje 7">
+<h3>KILIS WASTE COLLECTION CENTER</h3>
+</div>
+
+<!-- Project 8 -->
+<div class="project-card" onclick="openProjectModal('DHMI GAZIANTEP AIRPORT', 'ATOLYE B', '2022', 'GAZIANTEP', 'NOT BUILT','' ,'', [
+'05_DHMI/1.jpg',
+'05_DHMI/2.jpg',
+'05_DHMI/3.jpg',
+'05_DHMI/4.jpg',
+'05_DHMI/5.jpg',
+'05_DHMI/6.jpg',
+'05_DHMI/7.jpg',
+'05_DHMI/8.jpg',
+'05_DHMI/9.jpg',
+'05_DHMI/10.jpg'
+
+]);">
+<img src="05_DHMI/3.jpg" alt="Proje 8">
+<h3>DHMI GAZIANTEP AIRPORT</h3>
+</div>
+
+<!-- Project 9 -->
+<div class="project-card" onclick="openProjectModal('DHMI TOKAT AIRPORT', 'ATOLYE B', '2022', 'TOKAT', 'BUILT IN','' ,'', [
+'04_TOKAT HAVALİMANI/1.jpg',
+'04_TOKAT HAVALİMANI/2.jpg',
+'04_TOKAT HAVALİMANI/3.jpg',
+
+]);">
+<img src="04_TOKAT HAVALİMANI/1.jpg" alt="Proje 9">
+<h3>DHMI TOKAT AIRPORT</h3>
+</div>
+
+<!-- Project 10 -->
+<div class="project-card" onclick="openProjectModal('KGM BERGAMA CONTROL STATION', 'ATOLYE B', '2020', 'IZMIR', 'NOT BUILT','' ,'', [
+'08_KGM BERGAMA/1.jpg',
+'08_KGM BERGAMA/2.jpg',
+'08_KGM BERGAMA/3.jpg',
+'08_KGM BERGAMA/4.jpg',
+'08_KGM BERGAMA/5.jpg',
+'08_KGM BERGAMA/6.jpg',
+'08_KGM BERGAMA/7.jpg',
+'08_KGM BERGAMA/8.jpg',
+'08_KGM BERGAMA/9.jpg',
+'08_KGM BERGAMA/10.jpg'
+
+]);">
+<img src="08_KGM BERGAMA/1.jpg" alt="Proje 10">
+<h3>KGM BERGAMA CONTROL STATION</h3>
+</div>
+
+<!-- Project 11 -->
+<div class="project-card" onclick="openProjectModal('D3 VILLAS', 'ATOLYE B', '2021', 'SAKARYA', 'BUILT IN','' ,'', [
+'09_DEDEHAN/1.jpg',
+'09_DEDEHAN/2.jpg',
+'09_DEDEHAN/3.jpg',
+'09_DEDEHAN/4.jpg',
+'09_DEDEHAN/5.jpg',
+'09_DEDEHAN/6.jpg',
+'09_DEDEHAN/7.jpg',
+'09_DEDEHAN/8.jpg',
+'09_DEDEHAN/9.jpg',
+'09_DEDEHAN/10.jpg',
+'09_DEDEHAN/11.jpg',
+'09_DEDEHAN/12.jpg',
+'09_DEDEHAN/13.jpg',
+'09_DEDEHAN/14.jpg'
+
+]);">
+<img src="09_DEDEHAN/14.jpg" alt="Proje 11">
+<h3>D3 VILLAS</h3>
+</div>
+
+<!-- Project 12 -->
+<div class="project-card" onclick="openProjectModal('KORKMAZ MEETING ROOM', 'F2R FABRIKASI', '2023', 'ISTANBUL', 'BUILT IN','' ,'', [
+'15_KORKMAZ TOPLANTI SALONU/1.jpg',
+'15_KORKMAZ TOPLANTI SALONU/2.jpg',
+'15_KORKMAZ TOPLANTI SALONU/3.jpg',
+'15_KORKMAZ TOPLANTI SALONU/4.jpg',
+
+]);">
+<img src="15_KORKMAZ TOPLANTI SALONU/3.jpg" alt="Proje 12">
+<h3>KORKMAZ MEETING ROOM</h3>
+</div>
+
+<!-- Project 13 -->
+<div class="project-card" onclick="openProjectModal('KORKMAZ KARTAL PRAVA', 'F2R FABRIKASI', '2023', 'ISTANBUL', 'BUILT IN','' ,'', [
+'10_KORKMAZ PRAVA/1.jpg',
+'10_KORKMAZ PRAVA/2.jpg',
+'10_KORKMAZ PRAVA/3.jpg',
+'10_KORKMAZ PRAVA/4.jpg',
+'10_KORKMAZ PRAVA/5.jpg',
+'10_KORKMAZ PRAVA/6.jpg',
+
+
+]);">
+<img src="10_KORKMAZ PRAVA/1.jpg" alt="Proje 13">
+<h3>KORKMAZ KARTAL PRAVA</h3>
+</div>
+
+<!-- Project 14 -->
+<div class="project-card" onclick="openProjectModal('KORKMAZ FIRST EVENUE', 'F2R FABRIKASI', '2023', 'ISTANBUL', 'BUILT IN','' ,'', [
+'11_KORKMAZ FIRST EVENUE/1.jpg',
+'11_KORKMAZ FIRST EVENUE/2.jpg',
+'11_KORKMAZ FIRST EVENUE/3.jpg',
+'11_KORKMAZ FIRST EVENUE/4.jpg',
+'11_KORKMAZ FIRST EVENUE/5.jpg',
+'11_KORKMAZ FIRST EVENUE/6.jpg',
+'11_KORKMAZ FIRST EVENUE/7.jpg',
+'11_KORKMAZ FIRST EVENUE/8.jpg',
+
+
+
+
+]);">
+<img src="11_KORKMAZ FIRST EVENUE/8.jpg" alt="Proje 14">
+<h3>KORKMAZ FIRST EVENUE</h3>
+</div>
+
+<!-- Project 15 -->
+<div class="project-card" onclick="openProjectModal('KORKMAZ NINOVA AVM', 'F2R FABRIKASI', '2023', 'DIYARBAKIR', 'BUILT IN','' ,'', [
+'12_KORKMAZ DIYARBAKIR NINOVA/1.jpg',
+'12_KORKMAZ DIYARBAKIR NINOVA/2.jpg',
+'12_KORKMAZ DIYARBAKIR NINOVA/3.jpg',
+'12_KORKMAZ DIYARBAKIR NINOVA/4.jpg',
+'12_KORKMAZ DIYARBAKIR NINOVA/5.jpg',
+'12_KORKMAZ DIYARBAKIR NINOVA/6.jpg',
+'12_KORKMAZ DIYARBAKIR NINOVA/7.jpg',
+
+
+
+
+]);">
+<img src="12_KORKMAZ DIYARBAKIR NINOVA/3.jpg" alt="Proje 15">
+<h3>KORKMAZ NINOVA AVM</h3>
+</div>
+<!-- Project 16 -->
+<div class="project-card" onclick="openProjectModal('GERMANY HOUSE', 'F2R FABRIKASI', '2022', 'BERLIN', 'BUILT IN','' ,'', [
+'02_GERMANY HOUSE/1.jpg',
+'02_GERMANY HOUSE2.jpg',
+'02_GERMANY HOUSE3.jpg',
+'02_GERMANY HOUSE4.jpg',
+'02_GERMANY HOUSE5.jpg',
+'02_GERMANY HOUSE6.jpg',
+'02_GERMANY HOUSE7.jpg',
+
+
+
+
+]);">
+<img src="02_GERMANY HOUSE/1.jpg" alt="Proje 16">
+<h3>GERMANY HOUSE</h3>
+</div>
+<!-- Project 17 -->
+<div class="project-card" onclick="openProjectModal('OSYM RENOVATION PROJECT', 'ATOLYE B', '2021', 'ANKARA', 'NOT BUILT','' ,'', [
+'07_OSYM/1.jpg',
+'07_OSYM/2.jpg',
+'07_OSYM/3.jpg',
+'07_OSYM/4.jpg',
+'07_OSYM/5.jpg',
+'07_OSYM/6.jpg',
+'07_OSYM/7.jpg',
+'07_OSYM/8.jpg',
+'07_OSYM/9.jpg',
+'07_OSYM/10.jpg',
+'07_OSYM/11.jpg',
+'07_OSYM/12.jpg',
+'07_OSYM/13.jpg',
+'07_OSYM/14.jpg',
+'07_OSYM/15.jpg',
+'07_OSYM/16.jpg',
+'07_OSYM/17.jpg'
+
+
+
+
+]);">
+<img src="07_OSYM/1.jpg" alt="Proje 17">
+<h3>OSYM RENOVATION PROJECT</h3>
+</div>
+
+<!-- Project 18 -->
+<div class="project-card" onclick="openProjectModal('SARIYER BOREKCISI', 'F2R FABRIKASI', '2022', 'ISTANBUL', 'BUILT IN','' ,'', [
+'19_SARIYER BOR/1.jpg',
+'19_SARIYER BOR/2.jpg',
+'19_SARIYER BOR/2.jpg',
+'19_SARIYER BOR/4.jpg',
+'19_SARIYER BOR/5.jpg',
+'19_SARIYER BOR/6.jpg',
+'19_SARIYER BOR/7.jpg',
+
+
+
+
+]);">
+<img src="19_SARIYER BOR/1.jpg" alt="Proje 18">
+<h3>SARIYER BOREKCISI</h3>
+</div>
+
+
+<!-- Project 19 -->
+<div class="project-card" onclick="openProjectModal('MERZIFON AIRPORT', 'ATOLYE B', '2021', 'AMASYA', 'NOT BUILT','' ,'', [
+'20_AMASYA AIR/1.jpg',
+'20_AMASYA AIR/2.jpg',
+'20_AMASYA AIR/3.jpg',
+'20_AMASYA AIR/4.jpg',
+'20_AMASYA AIR/5.jpg',
+'20_AMASYA AIR/6.jpg',
+'20_AMASYA AIR/7.jpg',
+'20_AMASYA AIR/8.jpg',
+'20_AMASYA AIR/9.jpg',
+'20_AMASYA AIR/10.jpg',
+'20_AMASYA AIR/11.jpg',
+'20_AMASYA AIR/12.jpg',
+'20_AMASYA AIR/13.jpg',
+'20_AMASYA AIR/14.jpg',
+'20_AMASYA AIR/15.jpg',
+'20_AMASYA AIR/16.jpg',
+'20_AMASYA AIR/17.jpg',
+'20_AMASYA AIR/18.jpg',
+'20_AMASYA AIR/19.jpg',
+'20_AMASYA AIR/20.jpg',
+'20_AMASYA AIR/21.jpg',
+'20_AMASYA AIR/22.jpg',
+'20_AMASYA AIR/23.jpg'
+
+
+
+
+]);">
+<img src="20_AMASYA AIR/1.jpg" alt="Proje 19">
+<h3>MERZIFON AIRPORT</h3>
+</div>
+
+
+
+    </div>
+
+    <div class="modal" id="projectModal" onclick="closeProjectModal()">
+        <div class="container" onclick="event.stopPropagation()">
+            
+            <div class="modal-content">
+                <div class="modal-carousel">
+                    <div class="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-slide">
+                                <img src="17_KILIS HAL/04.jpg" alt="Project 1 Image 1">
+                            </div>
+                            
+                            <div class="carousel-slide">
+                                <img src="17_KILIS HAL/04.jpg" alt="Project 2 Image 1">
+                            </div>
+                            
+
+                            <!-- Diğer resimler buraya eklenebilir -->
+                        </div>
+                        <a class="carousel-control prev" onclick="changeSlide(-1)">&#10094;</a>
+                        <a class="carousel-control next" onclick="changeSlide(1)">&#10095;</a>
+                    </div>
+                </div>
+                <div class="modal-description">
+                    <h2 id="projectTitle"></h2>
+                    <p id="projectArchitect"></p>
+                    <p id="projectYear"></p>
+                    <p id="projectCity"></p>
+                    <p id="projectStatus"></p>
+                    <p id="projectContent"></p>
+                </div>
+            
+            </div>
+        </div>
+    </div>
+    
+    
+    
+    <footer>
+        <div class="footer-icons">
+            <a href="mailto:info@example.com" class="footer-icon">
+                <i class="far fa-envelope"></i>
+            </a>
+            <a href="https://www.instagram.com/fatihv.rli/" class="footer-icon">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/fatihvarli/" class="footer-icon">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="https://www.pinterest.com/fatihvarli/" class="footer-icon">
+                <i class="fab fa-pinterest"></i>
+            </a>
+        </div>
+        <p class="copyright-notice">© 2023 Fatih Varli. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function openProjectModal(title, architect, year, city, status,projectcontributions, content, images) {
+    const modal = document.getElementById('projectModal');
+    modal.style.display = 'block';
+
+    document.getElementById('projectTitle').textContent = title;
+    document.getElementById('projectArchitect').textContent = `Company: ${architect}`;
+    document.getElementById('projectYear').textContent = `Year: ${year}`;
+    document.getElementById('projectCity').textContent = `City: ${city}`;
+    document.getElementById('projectStatus').textContent = `Status: ${status}`;
+    document.getElementById('projectStatus').textContent = `project contributions: ${projectcontributions}`;
+    document.getElementById('projectContent').textContent = content;
+
+    // Carousel içeriğini güncelle
+    const carouselInner = document.querySelector('.carousel-inner');
+    carouselInner.innerHTML = '';
+
+    // Her görsel için bir slayt oluştur
+    images.forEach((imageURL, index) => {
+        const slide = document.createElement('div');
+        slide.className = 'carousel-slide';
+        const img = document.createElement('img');
+        img.src = imageURL;
+        img.alt = `${title} Resim ${index + 1}`;
+        slide.appendChild(img);
+        carouselInner.appendChild(slide);
+    });
+
+    // İlk slaytı göster
+    showSlide(1);
+}
+
+// Karusel için slayt sayısını ayarlayın ve ilk slaytı gösterin
+let currentSlide = 1;
+
+function changeSlide(n) {
+    showSlide(currentSlide += n);
+}
+
+function showSlide(n) {
+    const slides = document.querySelectorAll('.carousel-slide');
+    if (n > slides.length) {
+        currentSlide = 1;
+    }
+    if (n < 1) {
+        currentSlide = slides.length;
+    }
+    for (let i = 0; i < slides.length; i++) {
+        slides[i].style.display = 'none';
+    }
+    slides[currentSlide - 1].style.display = 'block';
+}
+
+
+// Modal dışına tıkladığınızda modalı kapatın
+window.onclick = function (event) {
+    const modal = document.getElementById('projectModal');
+    if (event.target == modal) {
+        modal.style.display = 'none';
+    }
+}
+
+function toggleBurgerMenu() {
+    const burgerMenu = document.querySelector('.burger-menu');
+    if (burgerMenu.style.right === '0') {
+        burgerMenu.style.right = '-100%';
+    } else {
+        burgerMenu.style.right = '0';
+    }
+}
+
+function closeBurgerMenu() {
+    const burgerMenu = document.querySelector('.burger-menu');
+    burgerMenu.style.right = '-100%';
+}
+
+function toggleMode() {
+    const body = document.body;
+    const modeIcon = document.getElementById('mode-icon');
+    const title = document.querySelector('.title'); // Başlıkı seçin
+    const linkAbout = document.querySelector('.link-about'); // About yazısını seçin
+    const linkContacts = document.querySelector('.link-contacts'); // Contacts yazısını seçin
+
+    if (body.classList.contains('dark-mode')) {
+        // Light mode
+        body.classList.remove('dark-mode');
+        modeIcon.classList.remove('fa-sun');
+        modeIcon.classList.add('fa-adjust');
+
+        // Başlık ve yazı renklerini varsayılana dönüştür
+        title.style.color = '#333';
+        linkAbout.style.color = '#333';
+        linkContacts.style.color = '#333';
+    } else {
+        // Dark mode
+        body.classList.add('dark-mode');
+        modeIcon.classList.remove('fa-adjust');
+        modeIcon.classList.add('fa-sun');
+
+        // Başlık ve yazı renklerini koyuya dönüştür
+        title.style.color = '#fff';
+        linkAbout.style.color = '#fff';
+        linkContacts.style.color = '#fff';
+    }
+}
+
+
+
+    </script>
+</body>
+</html>
